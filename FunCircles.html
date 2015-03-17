@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  	<title>Fun Circles </title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background: black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="my_canvas" width="800" height="800"></canvas>
+    <script>
+    //################################## Without prototoype ################################
+
+     	function circle_without_proto() {
+     		 
+     		this.coordinate = function get_coordinate(){
+     			return Math.floor((Math.random()*1000));
+     		}
+
+   			this.radius = function get_radius(){
+   			return Math.floor((Math.random()*20));
+   			}
+
+   			this.color = function get_color(){
+   			return "rgb("+ Math.floor( (Math.random()*255)+0) + "," + Math.floor( (Math.random()*255)+0) + "," + 
+                       Math.floor( (Math.random()*255)+0) +")";
+   			}
+	     
+	     	this.create_circle = function(){
+     			this.canvas 	= document.getElementById('my_canvas');
+		      this.context 	= this.canvas.getContext('2d');
+		     	this.center_x = this.coordinate();
+		     	this.center_y = this.coordinate();
+		      this.radius   = this.radius();
+
+		      this.context.beginPath();
+	      	this.context.arc(	this.center_x, 	this.center_y, this.radius , 0, 2 * Math.PI, false);
+	      	this.context.fillStyle = this.color();
+	      	this.context.fill();
+	      	this.context.lineWidth = 2;
+	      	this.context.strokeStyle = this.color();
+		     	this.context.stroke();
+	     	} 
+     	}
+     var time_before = new Date();
+
+     	for (var counter = 0; counter < 500; counter++) {
+     		 var circle = new circle_without_proto();
+     		 circle.create_circle();
+     	};
+
+     	var time_after = new Date();
+
+     	console.log("time taken without prototype" ,time_after-time_before);
+
+    //################################## With prototoype ################################
+
+     	function Circle_Proto() {
+
+     		Circle_Proto.prototype.coordinate = function get_coordinate(){
+     			return Math.floor((Math.random()*1000));
+     		}
+
+   			Circle_Proto.prototype.radius = function get_radius(){
+   			return Math.floor((Math.random()*10));
+   			}
+
+   			Circle_Proto.prototype.color = function get_color(){
+   			return "rgb("+ Math.floor( (Math.random()*255)+0) + "," + Math.floor( (Math.random()*255)+0) + "," + 
+                       Math.floor( (Math.random()*255)+0) +")";
+   			}
+	     
+	     	Circle_Proto.prototype.create_circle = function(){
+     			this.canvas 	= document.getElementById('my_canvas');
+		      this.context 	= this.canvas.getContext('3d');
+		     	this.center_x = this.coordinate();
+		     	this.center_y = this.coordinate();
+		      this.radius   = this.radius();
+		      this.context.beginPath();
+	      	this.context.arc(	this.center_x, 	this.center_y, this.radius , 0, 2 * Math.PI, false);
+	      	this.context.fillStyle ="white";
+	      	this.context.fill();
+	      	this.context.lineWidth = 3;
+	      	this.context.strokeStyle = this.color();
+		     	this.context.stroke();
+	     	} 
+     	}
+     	var time_before = new Date();
+
+     	for (var counter = 0; counter < 500; counter++) {
+     		 var circle = new Circle_Proto();
+     		 circle.create_circle();
+     	};
+
+     	var time_after = new Date();
+
+     	console.log("time taken with prototype" ,time_after-time_before);
+     
+    </script>
+  </body>
+</html>      
